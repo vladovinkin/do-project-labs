@@ -17,7 +17,7 @@ int main()
     sf::Vector2f position = offset;
     float speedX = 100.f;
     
-    sf::RenderWindow window(sf::VideoMode({WINDOW_WIDTH, WINDOW_HEIGHT}), "Wave Moving Ball");
+    sf::RenderWindow window(sf::VideoMode({WINDOW_WIDTH, WINDOW_HEIGHT}), "Wave Moving Ball X-reflection");
     ball.setFillColor(sf::Color(0xFF, 0xFF, 0xFF));
     
     sf::Clock clock;
