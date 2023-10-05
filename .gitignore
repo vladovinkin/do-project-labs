@@ -1,18 +1,2 @@
 .vscode/settings.json
-*.cmake
-*.marks
-Makefile
-MakeFile*
-CMakeCache.txt
-*.rsp
-*.log
-*.bin
-*.c
-*.cxx
-*.exe
-*.make
-TargetDirectories.txt
-link.txt
-*.check_cache
-CMakeCXXCompilerId.cpp
 
