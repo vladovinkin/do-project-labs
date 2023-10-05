@@ -36,4 +36,5 @@ int main()
         window.clear();
         window.display();
     }
+    return 0;
 }
