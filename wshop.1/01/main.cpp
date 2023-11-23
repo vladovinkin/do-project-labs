@@ -3,10 +3,9 @@
 #include <iostream>
 #include <algorithm>
 
-void init(sf::ConvexShape &pointer, float &angleDegree);
-void pollEvents(sf::RenderWindow &window, sf::Vector2f &mousePosition);
-void update(sf::Vector2f &mousePosition, sf::ConvexShape &pointer, sf::Clock &clock, float &angleDegree);
-void redrawFrame(sf::RenderWindow &window, sf::ConvexShape &pointer);
+void init(sf::ConvexShape &, float &);
+void pollEvents(sf::RenderWindow &);
+void redrawFrame(sf::RenderWindow &, sf::ConvexShape &);
 
 int main()
 {
@@ -28,8 +27,7 @@ int main()
     init(pointer, angleDegree);
     while (window.isOpen())
     {
-        pollEvents(window, mousePosition);
-        update(mousePosition, pointer, clock, angleDegree);
+        pollEvents(window);
         redrawFrame(window, pointer);
     }
     return 0;
@@ -49,10 +47,11 @@ void init(sf::ConvexShape &pointer, float &angleDegree)
     pointer.setFillColor(sf::Color(0xFF, 0xFD, 0x00));
     pointer.setOutlineColor(sf::Color(0x00, 0x00, 0x00));
     pointer.setOutlineThickness(2.0);
-    angleDegree = 0;
+    angleDegree = 45;
+    pointer.setRotation(angleDegree);
 }
 
-void pollEvents(sf::RenderWindow &window, sf::Vector2f &mousePosition)
+void pollEvents(sf::RenderWindow &window)
 {
     sf::Event event;
     while (window.pollEvent(event))
@@ -64,11 +63,6 @@ void pollEvents(sf::RenderWindow &window, sf::Vector2f &mousePosition)
             break;
         }
     }
-}
-
-void update(sf::Vector2f &mousePosition, sf::ConvexShape &pointer, sf::Clock &clock, float &angleDegree)
-{
-    
 }
 
 void redrawFrame(sf::RenderWindow &window, sf::ConvexShape &pointer)
