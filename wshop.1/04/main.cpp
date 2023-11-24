@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Vertex.hpp>
 #include <SFML/Window/Event.hpp>
 #include <cmath>
 #include <iostream>
@@ -67,7 +68,8 @@ int main()
 void update(sf::Clock &clock, sf::Sprite &spriteCat, LaserPointer &laser)
 {
     const sf::Vector2f spriteCatPosition = spriteCat.getPosition();
-    const sf::Vector2f delta = laser.sprite.getPosition() - spriteCatPosition;
+    const sf::Vector2f laserPosition = laser.sprite.getPosition();
+    const sf::Vector2f delta = laserPosition - spriteCatPosition;
     const float deltaNormal = sqrtf(delta.x * delta.x + delta.y * delta.y);
     const float deltaTime = clock.restart().asSeconds();
 
@@ -76,7 +78,9 @@ void update(sf::Clock &clock, sf::Sprite &spriteCat, LaserPointer &laser)
         const sf::Vector2f direction = delta / deltaNormal;
         const float path = 200.0 * deltaTime;
 
-        spriteCat.setPosition(spriteCatPosition + direction * path);
+        const sf::Vector2f catPosition = spriteCatPosition + direction * path;
+
+        spriteCat.setPosition(catPosition);
         spriteCat.setScale((delta.x > 0 ? 1 : -1), 1);
     }
     else
@@ -89,8 +93,17 @@ void redrawFrame(sf::RenderWindow &window, sf::Sprite &spriteCat, LaserPointer &
 {
     window.clear(sf::Color(0xFF, 0xFF, 0xFF));
     if (laser.isOn)
+    {
+        sf::Vertex line[2];
+        line[0].color = sf::Color::Red;
+        line[1].color = sf::Color::White;
+        line[0].position = spriteCat.getPosition();
+        line[1].position = laser.sprite.getPosition();
+        window.draw(line, 2, sf::Lines);
         window.draw(laser.sprite);
+    }
     window.draw(spriteCat);
+
     window.display();
 }
 
